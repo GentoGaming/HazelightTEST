@@ -22,7 +22,7 @@ void ARopeHabschAttachPoint::PlayerDistanceToImageScale()
 
 void ARopeHabschAttachPoint::UseAttachPoint()
 {
-	if (AttachPointState!=InUseState)
+	if (AttachPointState!=InUseState && AttachPointState == InFocusState)
 	{
 		AttachPointState = InUseState;
 		PlayAnimationOnUse();
