@@ -38,7 +38,7 @@ ARopeHabschAttachPoint* URopeHabschRopeComponent::CheckForAttachPoints() const
 													 ObjectTypesArray, false, TArray<AActor*>(),
 													 bIsDebug ? EDrawDebugTrace::ForDuration : EDrawDebugTrace::None,
 													 Hits, true, FLinearColor::Red, FLinearColor::Green, 1);
-	float MinDotProduct = 1.0f;
+	float MinDotProduct = 0.7f;
 
 	FAttachPointStruct NewAttachPtStruct = FAttachPointStruct{nullptr,TArray<AActor*>()};
 
@@ -51,9 +51,9 @@ ARopeHabschAttachPoint* URopeHabschRopeComponent::CheckForAttachPoints() const
 				ARopeHabschAttachPoint * TempAttachPoint  = Cast<ARopeHabschAttachPoint>(Hit.GetActor());
 				FVector CameraForwardVector = CameraComponent->GetForwardVector();
 				FVector DirectionFromPlayerToAttachPoint = (GetOwner()->GetActorLocation() - Hit.GetActor()->GetActorLocation()).GetSafeNormal();
-				const float DotValue = FVector::DotProduct(DirectionFromPlayerToAttachPoint, CameraForwardVector);
+				const float DotValue = FVector::DotProduct(CameraForwardVector,DirectionFromPlayerToAttachPoint);
 			
-				if(DotValue < MinDotProduct)
+				if(DotValue > MinDotProduct)
 				{
 					MinDotProduct = DotValue;
 					AttachPoint = TempAttachPoint;
