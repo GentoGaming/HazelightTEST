@@ -33,12 +33,16 @@ ARopeHabschAttachPoint* URopeHabschRopeComponent::CheckForAttachPoints() const
 
 	ARopeHabschAttachPoint * AttachPoint = nullptr;
 
+	// Ray Casting Sphere of specific radius , Activate Attach Points
 	TArray<FHitResult> Hits;
 	UKismetSystemLibrary::SphereTraceMultiForObjects(GetWorld(), GetOwner()->GetActorLocation(), GetOwner()->GetActorLocation(), RayCastRadius,
 													 ObjectTypesArray, false, TArray<AActor*>(),
 													 bIsDebug ? EDrawDebugTrace::ForDuration : EDrawDebugTrace::None,
 													 Hits, true, FLinearColor::Red, FLinearColor::Green, 1);
-	float MinDotProduct = 1.0f;
+	
+	float MinDotProduct = 1.0f; // Max 1
+
+	// Prepare to send Event in case found at least one attach point
 
 	FAttachPointStruct NewAttachPtStruct = FAttachPointStruct{nullptr,TArray<AActor*>()};
 
@@ -46,14 +50,15 @@ ARopeHabschAttachPoint* URopeHabschRopeComponent::CheckForAttachPoints() const
 	{
 		if (Hit.bBlockingHit)
 		{
+			UE_LOG(LogTemp,Warning,TEXT("Hit %s"), *Hit.GetActor()->GetName());
 
-				NewAttachPtStruct.AttachPointsInRange.Add(Hit.GetActor());
 				ARopeHabschAttachPoint * TempAttachPoint  = Cast<ARopeHabschAttachPoint>(Hit.GetActor());
+				NewAttachPtStruct.AttachPointsInRange.Add(Hit.GetActor());
 				FVector CameraForwardVector = CameraComponent->GetForwardVector();
 				FVector DirectionFromPlayerToAttachPoint = (GetOwner()->GetActorLocation() - Hit.GetActor()->GetActorLocation()).GetSafeNormal();
 				const float DotValue = FVector::DotProduct(DirectionFromPlayerToAttachPoint, CameraForwardVector);
-			
-				if(DotValue < MinDotProduct)
+								
+				if( (DotValue <= MinDotProduct ) && !(TempAttachPoint->AttachPointState == InBlockViewState))
 				{
 					MinDotProduct = DotValue;
 					AttachPoint = TempAttachPoint;
@@ -61,12 +66,14 @@ ARopeHabschAttachPoint* URopeHabschRopeComponent::CheckForAttachPoints() const
 			
 		}
 	}
-	if(AttachPoint!=nullptr)
-	{
-		NewAttachPtStruct.AttachPointInFocus = AttachPoint;
-	}
 
-	OnScanningForAttachPoints.Broadcast(NewAttachPtStruct);
+	NewAttachPtStruct.AttachPointInFocus = AttachPoint;
+
+		// Send Event Only If 1 Valid Attach Point Found 
+		if (NewAttachPtStruct.AttachPointsInRange.Num() != 0) {
+		OnScanningForAttachPoints.Broadcast(NewAttachPtStruct);
+	}
+	
 	
 	return  AttachPoint;
 }

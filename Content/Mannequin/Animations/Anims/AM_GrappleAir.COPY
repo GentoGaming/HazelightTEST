@@ -1,0 +1,19 @@
+Begin Object Class=/Script/Engine.AnimMontage Name="AM_GrappleAir"
+   Begin Object Class=/Script/UnrealEd.SceneThumbnailInfo Name="SceneThumbnailInfo_0"
+   End Object
+   Begin Object Name="SceneThumbnailInfo_0"
+   End Object
+   BlendIn=(BlendTime=0.000000)
+   BlendOut=(BlendTime=0.100000)
+   CompositeSections(0)=(SectionName="Default",NextSectionName="Throw",LinkedMontage=AnimMontage'"AM_GrappleAir"',SegmentIndex=0,SegmentLength=1.981818,LinkedSequence=AnimSequence'"/Game/Sekiro/Animations/A_GrappleInAir.A_GrappleInAir"')
+   SlotAnimTracks(0)=(AnimTrack=(AnimSegments=((AnimReference=AnimSequence'"/Game/Sekiro/Animations/A_GrappleInAir.A_GrappleInAir"',AnimEndTime=1.981818))))
+   Notifies(0)=(NotifyName="Rope Appears",EndLink=(LinkValue=0.067347),Guid=92BDAF08416F58037ED50396045CF7C0,LinkedMontage=AnimMontage'"AM_GrappleAir"',SegmentIndex=0,SegmentLength=1.981818,LinkValue=0.067347,LinkedSequence=AnimSequence'"/Game/Sekiro/Animations/A_GrappleInAir.A_GrappleInAir"')
+   Notifies(1)=(NotifyName="ThrowRope",EndLink=(LinkValue=0.303061),Guid=52B24E7A43AA5E05295EAAA79B72150A,LinkedMontage=AnimMontage'"AM_GrappleAir"',SegmentIndex=0,SegmentLength=1.981818,LinkValue=0.303061,LinkedSequence=AnimSequence'"/Game/Sekiro/Animations/A_GrappleInAir.A_GrappleInAir"')
+   Notifies(2)=(NotifyName="StartMovement",EndLink=(LinkValue=0.774490),Guid=9B44D9374391FD06788CE2A39C68864C,LinkedMontage=AnimMontage'"AM_GrappleAir"',SegmentIndex=0,SegmentLength=1.981818,LinkValue=0.774490,LinkedSequence=AnimSequence'"/Game/Sekiro/Animations/A_GrappleInAir.A_GrappleInAir"')
+   Notifies(3)=(NotifyName="RopeDissapear",EndLink=(LinkValue=1.447959),Guid=0C81F916411BAC08822811A063115261,LinkedMontage=AnimMontage'"AM_GrappleAir"',SegmentIndex=0,SegmentLength=1.981818,LinkValue=1.447959,LinkedSequence=AnimSequence'"/Game/Sekiro/Animations/A_GrappleInAir.A_GrappleInAir"')
+   Notifies(4)=(NotifyName="AnimEnd",EndLink=(LinkValue=1.645917),Guid=D2433E8942E79B1F160790B617039A92,LinkedMontage=AnimMontage'"AM_GrappleAir"',SegmentIndex=0,SegmentLength=1.981818,LinkValue=1.645917,LinkedSequence=AnimSequence'"/Game/Sekiro/Animations/A_GrappleInAir.A_GrappleInAir"')
+   SequenceLength=1.981818
+   AnimNotifyTracks(0)=(TrackName="1",TrackColor=(R=0.500000,G=0.500000,B=0.500000,A=1.000000))
+   Skeleton=Skeleton'"/Game/Sekiro/Character/UE4_Mannequin_Skeleton.UE4_Mannequin_Skeleton"'
+   ThumbnailInfo=SceneThumbnailInfo'"SceneThumbnailInfo_0"'
+End Object

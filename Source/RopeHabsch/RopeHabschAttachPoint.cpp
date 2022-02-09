@@ -1,5 +1,6 @@
 #include "RopeHabschAttachPoint.h"
 
+#include "Components/ArrowComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "RopeMechanics/RopeHabschRopeComponent.h"
@@ -11,6 +12,10 @@ ARopeHabschAttachPoint::ARopeHabschAttachPoint()
 
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh Component"));
 	StaticMeshComponent->SetupAttachment(RootComponent);
+
+	ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("Arrow Component"));
+	ArrowComponent->SetupAttachment(RootComponent);
+
 }
 
 void ARopeHabschAttachPoint::PlayerDistanceToImageScale() 
@@ -22,74 +27,117 @@ void ARopeHabschAttachPoint::PlayerDistanceToImageScale()
 
 void ARopeHabschAttachPoint::UseAttachPoint()
 {
+
 	if (AttachPointState!=InUseState && AttachPointState == InFocusState && DistancedFromPlayerClamped == 100)
 	{
+		SetActorTickEnabled(false);
 		AttachPointState = InUseState;
-		PlayAnimationOnUse();
+		ChangeAttachPointState(InUseState);
+
 	}
 	
 }
 
 void ARopeHabschAttachPoint::ChangeAttachPointState( FAttachPointStruct AttachPointStruct)
 {
-	if(AttachPointState == InUseState)
-	{
-		return;	
+
+	// This Attach Point in Use , Return
+	if (AttachPointState == InUseState) return;
+
+	SetActorTickEnabled(false);
+	
+	// Too Close Disable Attach Point
+	if ((GetActorLocation() - Player->GetActorLocation()).Size() < DisableAtMinDistanceOf) {
+		if(AttachPointState != InBlockViewState )
+		{
+			AttachPointState = InBlockViewState;
+			ChangeAttachPointState(InBlockViewState);
+			return;
+		}
+		return;
 	}
-
-	FHitResult HitSingleLine;
-	UKismetSystemLibrary::LineTraceSingle(GetWorld(), GetActorLocation(),
-										  Player->GetActorLocation(),
-										  UEngineTypes::ConvertToTraceType
-										  (ECollisionChannel::ECC_Visibility), false, IgnoreActors,
-										  bIsDebug ? EDrawDebugTrace::ForDuration : EDrawDebugTrace::None,
-										  HitSingleLine, true, FLinearColor::Red,
-										  FLinearColor::Green, 0.02);
-
-	if(HitSingleLine.bBlockingHit )
+	
+	if (AttachPointStruct.AttachPointInFocus != this && !AttachPointStruct.AttachPointsInRange.Contains(this))
 	{
-		AttachPointState = OutRangeState;
+		if(AttachPointState != OutRangeState)
+		{
+			AttachPointState = OutRangeState;
+			ChangeAttachPointState(OutRangeState);
+			return;
+		}
+
 		return;
 	}
 
 
-	
-	if(this == AttachPointStruct.AttachPointInFocus)
+	if (AttachPointStruct.AttachPointInFocus == this)
 	{
-		if(AttachPointState!=InFocusState)
+
+		FHitResult HitSingleLine;
+		UKismetSystemLibrary::LineTraceSingle(GetWorld(), GetActorLocation(),
+			Player->GetActorLocation(),
+			UEngineTypes::ConvertToTraceType
+			(ECollisionChannel::ECC_Visibility), false, IgnoreActors,
+			bIsDebug ? EDrawDebugTrace::ForDuration : EDrawDebugTrace::None,
+			HitSingleLine, true, FLinearColor::Red,
+			FLinearColor::Green, 0.02);
+
+
+		if (!HitSingleLine.bBlockingHit)
 		{
-			AttachPointState = InFocusState;
 			SetActorTickEnabled(true);
+			if (AttachPointState != InFocusState)
+			{
+				AttachPointState = InFocusState;
+				ChangeAttachPointState(InFocusState);
+				return;
+
+			}
+			return;
+
+		}
+		else
+		{
+			if (AttachPointState == InFocusState)
+			{
+				AttachPointState = OutRangeState;
+				ChangeAttachPointState(OutRangeState);
+				return;
+			}
+		}
+
+	}
+
+
+	if(AttachPointStruct.AttachPointInFocus != this && AttachPointStruct.AttachPointsInRange.Contains(this))
+	{
+		if(AttachPointState != InRangeState)
+		{
+			AttachPointState = InRangeState;
+			ChangeAttachPointState(InRangeState);
+			return;
 		}
 		return;
 	}
 
-	if(AttachPointStruct.AttachPointsInRange.Contains(this) && AttachPointState!=InRangeState)
+	
+	if(AttachPointState != OutRangeState)
 	{
-		AttachPointState = InRangeState;
-		SetActorTickEnabled(true);
-		return;
+		ChangeAttachPointState(OutRangeState);
 	}
 
-	if(AttachPointState!=OutRangeState)
-	{
-		SetActorTickEnabled(false);
-		AttachPointState = OutRangeState;
-	}
-	
-	SetActorTickEnabled(false);
 }
 
 void ARopeHabschAttachPoint::BeginPlay()
 {
 	Super::BeginPlay();
-	SetActorTickEnabled(false);
+	SetActorTickEnabled(true);
 	Player = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
 	IgnoreActors.Add(this);
 	IgnoreActors.Add(Player);
 	PlayerRopeComponent = Player->FindComponentByClass<URopeHabschRopeComponent>();
 	PlayerRopeComponent->OnScanningForAttachPoints.AddUObject(this, &ARopeHabschAttachPoint::ChangeAttachPointState); //see above in wiki
-
+	UE_LOG(LogTemp,Warning,TEXT("Hello %s"), *GetClass()->GetName());
 }
 
 void ARopeHabschAttachPoint::Tick(float DeltaSeconds)
