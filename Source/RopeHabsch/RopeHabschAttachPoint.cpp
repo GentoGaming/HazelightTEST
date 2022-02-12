@@ -1,6 +1,8 @@
 #include "RopeHabschAttachPoint.h"
 
+#include "RopeHabschCharacter.h"
 #include "Components/ArrowComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "RopeMechanics/RopeHabschRopeComponent.h"
@@ -25,7 +27,7 @@ void ARopeHabschAttachPoint::PlayerDistanceToImageScale()
 	DistancedFromPlayerClamped = UKismetMathLibrary::MapRangeClamped(DistanceFromPlayer,AttachPointDistance, PlayerRopeComponent->RayCastRadius, 100, 0);
 }
 
-void ARopeHabschAttachPoint::UseAttachPoint()
+bool ARopeHabschAttachPoint::UseAttachPoint()
 {
 
 	if (AttachPointState!=InUseState && AttachPointState == InFocusState && DistancedFromPlayerClamped == 100)
@@ -33,9 +35,9 @@ void ARopeHabschAttachPoint::UseAttachPoint()
 		SetActorTickEnabled(false);
 		AttachPointState = InUseState;
 		ChangeAttachPointState(InUseState);
-
+		return true;
 	}
-	
+	return false;
 }
 
 void ARopeHabschAttachPoint::ChangeAttachPointState( FAttachPointStruct AttachPointStruct)
@@ -132,12 +134,12 @@ void ARopeHabschAttachPoint::BeginPlay()
 {
 	Super::BeginPlay();
 	SetActorTickEnabled(true);
-	Player = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
+	Player = Cast<ARopeHabschCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
 	IgnoreActors.Add(this);
 	IgnoreActors.Add(Player);
-	PlayerRopeComponent = Player->FindComponentByClass<URopeHabschRopeComponent>();
+	PlayerRopeComponent = Player->RopeComponent;
 	PlayerRopeComponent->OnScanningForAttachPoints.AddUObject(this, &ARopeHabschAttachPoint::ChangeAttachPointState); //see above in wiki
-	UE_LOG(LogTemp,Warning,TEXT("Hello %s"), *GetClass()->GetName());
+	Destination = GetActorLocation() + FVector(0,0,Player->GetCapsuleComponent()->GetUnscaledCapsuleHalfHeight());
 }
 
 void ARopeHabschAttachPoint::Tick(float DeltaSeconds)

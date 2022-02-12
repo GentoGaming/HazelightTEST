@@ -11,60 +11,70 @@ struct FAttachPointStruct
 	UPROPERTY(BlueprintReadOnly)
 	AActor* AttachPointInFocus;
 	UPROPERTY(BlueprintReadOnly)
-	TArray<AActor*>AttachPointsInRange;
+	TArray<AActor*> AttachPointsInRange;
 };
 
+UENUM(BlueprintType)
+enum EAnimationStates
+{
+	CableVisibilityOn UMETA(DisplayName = "Cable Visibility On"),
+	LerpToDestination UMETA(DisplayName = "Lerp To Destination"),
+	CableVisibilityOff UMETA(DisplayName = "Cable Visibility Off"),
+	EndOfAnimation UMETA(DisplayName = "Enf OF Animation"),
+	GainGravity UMETA(DisplayName = "Gain Gravity"),
+};
 
-
-UCLASS(BlueprintType, Meta=(BlueprintSpawnableComponent))
+UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class ROPEHABSCH_API URopeHabschRopeComponent : public UActorComponent
 {
-	
-	
 	DECLARE_MULTICAST_DELEGATE_OneParam(FOnScanningForAttachPoints, FAttachPointStruct AttachPointStruct);
 
 	GENERATED_BODY()
-	/*  Will Raycast to get the attach points available
-	 *  array of filters the ray cast hit for scalability. "Attach Points was added to object channel"
-	 */
+
 	UPROPERTY(EditDefaultsOnly, Category="RayCast Settings", meta = (AllowPrivateAccess = "true"))
 	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypesArray; // object types to trace
-
 	UPROPERTY()
-	class UCharacterMovementComponent * MovementComponent;
+	class UCharacterMovementComponent* MovementComponent;
 	UPROPERTY()
-	class UCameraComponent * CameraComponent;
-
+	class UCameraComponent* CameraComponent;
+	UPROPERTY()
+	class ARopeHabschCharacter* Player;
 	/* Allow Player to hook when he is above the grappling point */
 	UPROPERTY(EditDefaultsOnly, Category="General Settings", meta = (AllowPrivateAccess = "true"))
 	bool bIsHookingDown = false;
 	/* Toggle Debug On/Off */
 	UPROPERTY(EditDefaultsOnly, Category="General Settings", meta = (AllowPrivateAccess = "true"))
 	bool bIsDebug = false;
-
 	UPROPERTY()
-	class ARopeHabschAttachPoint* ClosestAttach;
-	
-	void DetectAvailablePoint();
-	
-public:	
-
+	class ARopeHabschAttachPoint* ClosestAttachPoint;
+	UPROPERTY()
+	ARopeHabschAttachPoint* CurrentInUseAttachPoint;
+	EAnimationStates AnimationState;
+	UPROPERTY()
+	UAnimInstance* AnimInstance;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="General Settings", meta = (AllowPrivateAccess = "true"))
+	class UHooksDataAsset* HooksDAsset;
+	bool bRopeAttached = false, bPlayerLerp = false, bAddingForceOnPlayer = false, bGravityChange = false;
+	float CurrentAngle, TimeAccumulation = 0.f, FullRopeLengthToDestination;
+	FVector PlayerToAttachPointDirection, FinalDestination;
+	void TurnOnOffMovement(bool Condition);
+	//void RolledInAir(){CurrentInUseAttachPoint = nullptr;};
+public:
 	URopeHabschRopeComponent();
 
 	FOnScanningForAttachPoints OnScanningForAttachPoints;
-
-	/*Ray cast every __ Second, 0.x for Milli Seconds, no need to cast it every frame ( OnTick )*/
-	UPROPERTY(EditDefaultsOnly, Category="RayCast Settings")
-	float RayCastTimeRate = 0.1f;
-
 	UPROPERTY(EditDefaultsOnly, Category="RayCast Settings")
 	float RayCastRadius = 2000;
-	
 	void StartHook();
-	void StopHook();
-	class ARopeHabschAttachPoint* CheckForAttachPoints() const;
+	ARopeHabschAttachPoint* CheckForAttachPoints() const;
+	void HookToAttachPoint();
+
+	UFUNCTION(BlueprintCallable)
+	void ChangeAnimationState(EAnimationStates State);
+	void TurnCableVisibility(bool Condition);
 
 protected:
 	virtual void BeginPlay() override;
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
+	                           FActorComponentTickFunction* ThisTickFunction) override;
 };

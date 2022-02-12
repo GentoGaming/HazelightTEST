@@ -5,6 +5,15 @@
 #include "GameFramework/Character.h"
 #include "RopeHabschCharacter.generated.h"
 
+UENUM(BlueprintType)
+enum EHookAnimation
+{
+	GrapplingAnimation UMETA(DisplayName = "Grappling Anim"),
+	SwingAnimation UMETA(DisplayName = "Swing Anim"),
+	LerpAnimation UMETA(DisplayName = "Lerp Anim"),
+	RollAnimation UMETA(DisplayName = "Roll Anim")
+};
+
 UCLASS(config=Game)
 class ARopeHabschCharacter : public ACharacter
 {
@@ -14,13 +23,28 @@ class ARopeHabschCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
 
+
+
+public:
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
-
-public:
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Swing Component", meta = (AllowPrivateAccess = "true"))
 	class URopeHabschRopeComponent *RopeComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Swing Component", meta = (AllowPrivateAccess = "true"))
+	class UCableComponent *Cable;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Swing Component", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<class URopeHabschRopeComponent> CableComponent;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Swing Component", meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* EndOfCable;
+	
+
+	UFUNCTION(BlueprintImplementableEvent, Category = MainMenu)
+	void PlayerAnimation( const EHookAnimation Anim, const bool bInAir);
 	
 	ARopeHabschCharacter();
 
@@ -32,6 +56,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	
+	bool KeyBoardEnabled = true;
+	
 protected:
 
 	/** Called for forwards/backward input */
@@ -63,11 +90,13 @@ protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
+	virtual void BeginPlay() override;
 
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
 };
 

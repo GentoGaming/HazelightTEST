@@ -1,6 +1,7 @@
 
 #include "RopeHabschCharacter.h"
 
+#include "CableComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -33,6 +34,10 @@ ARopeHabschCharacter::ARopeHabschCharacter()
 	CameraBoom->TargetArmLength = 300.0f; // The camera follows at this distance behind the character	
 	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
 
+	EndOfCable = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("End Of Rope"));
+	EndOfCable->SetupAttachment(RootComponent);
+
+	
 	// Create a follow camera
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
@@ -41,7 +46,10 @@ ARopeHabschCharacter::ARopeHabschCharacter()
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 
-	RopeComponent = CreateDefaultSubobject<URopeHabschRopeComponent>(TEXT("Rope component"));
+	Cable = CreateDefaultSubobject<UCableComponent>(TEXT("Cable Component"));
+	Cable->SetupAttachment(GetMesh());
+
+	RopeComponent = CreateDefaultSubobject<URopeHabschRopeComponent>(TEXT("Rope Component"));
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -53,10 +61,6 @@ void ARopeHabschCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
-
-	PlayerInputComponent->BindAction("Hook", IE_Pressed, RopeComponent, &URopeHabschRopeComponent::StartHook);
-	PlayerInputComponent->BindAction("Hook", IE_Released, RopeComponent, &URopeHabschRopeComponent::StopHook);
-	
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &ARopeHabschCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ARopeHabschCharacter::MoveRight);
@@ -73,12 +77,19 @@ void ARopeHabschCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	PlayerInputComponent->BindTouch(IE_Pressed, this, &ARopeHabschCharacter::TouchStarted);
 	PlayerInputComponent->BindTouch(IE_Released, this, &ARopeHabschCharacter::TouchStopped);
 
+	InputComponent->BindAction("Hook", IE_Pressed, RopeComponent, &URopeHabschRopeComponent::StartHook);
+}
+
+void ARopeHabschCharacter::BeginPlay()
+{
+	Super::BeginPlay();
 
 }
 
 
 void ARopeHabschCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
+	if(!KeyBoardEnabled) return;
 		Jump();
 }
 
@@ -101,6 +112,7 @@ void ARopeHabschCharacter::LookUpAtRate(float Rate)
 
 void ARopeHabschCharacter::MoveForward(float Value)
 {
+	if(!KeyBoardEnabled) return;
 	if ((Controller != NULL) && (Value != 0.0f))
 	{
 		// find out which way is forward
@@ -115,6 +127,7 @@ void ARopeHabschCharacter::MoveForward(float Value)
 
 void ARopeHabschCharacter::MoveRight(float Value)
 {
+	if(!KeyBoardEnabled) return;
 	if ( (Controller != NULL) && (Value != 0.0f) )
 	{
 		// find out which way is right

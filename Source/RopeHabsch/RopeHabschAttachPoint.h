@@ -28,26 +28,22 @@ class ARopeHabschAttachPoint : public AActor
 {
 	GENERATED_BODY()
 	
-protected:
+private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Scene Component", meta = (AllowPrivateAccess = "true"))
 	class USceneComponent* SceneComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Scene Component", meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* StaticMeshComponent;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Scene Component", meta = (AllowPrivateAccess = "true"))
-	class UArrowComponent* ArrowComponent;
+	
 
 	UPROPERTY()
 	class URopeHabschRopeComponent* PlayerRopeComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Visible Data", meta = (AllowPrivateAccess = "true"))
 	float DistancedFromPlayerClamped = 0.f;
-
 	
-
 	UPROPERTY()
-	AActor* Player;
+	class ARopeHabschCharacter* Player;
 
 	UPROPERTY(EditDefaultsOnly, Category="General Settings", meta = (AllowPrivateAccess = "true"))
 	bool bIsDebug = false;
@@ -55,6 +51,7 @@ protected:
 	UPROPERTY()
 	TArray<AActor*>IgnoreActors;
 
+	FVector Destination;
 	/*Decide Which State the Attach Point is In .*/
 	void ChangeAttachPointState(struct FAttachPointStruct AttachPointStruct);
 
@@ -65,6 +62,8 @@ public:
 	
 	ARopeHabschAttachPoint();
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Scene Component", meta = (AllowPrivateAccess = "true"))
+	class UArrowComponent* ArrowComponent;
 	
 	/*Distance of Attach point that allows it to be focused*/
 	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, Category = "General Settings")
@@ -94,7 +93,7 @@ public:
 	void PlayerDistanceToImageScale() ;
 	
 	/*Hook This Attach point*/
-	void UseAttachPoint();
+	bool UseAttachPoint();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void ChangeAttachPointState(EAttachPointState State);
