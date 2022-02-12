@@ -159,13 +159,11 @@ void URopeHabschRopeComponent::ChangeAnimationState(const EAnimationStates State
 			{
 				bPlayerLerp = false;
 				Player->SetActorEnableCollision(true);
-				Player->EnableInput(Cast<APlayerController>(Player->Controller));
+				Player->KeyBoardEnabled = true;
 				bGravityChange = true;
 				bRopeAttached = false;
 				TurnCableVisibility(false);
 				CurrentInUseAttachPoint = nullptr;
-			//	FTimerHandle MemberTimerHandle;
-			//	GetWorld()->GetTimerManager().SetTimer(MemberTimerHandle, this,  &URopeHabschRopeComponent::RolledInAir, 1, false, 0.5);
 				break;
 			}
 		default: break;
@@ -277,7 +275,7 @@ void URopeHabschRopeComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	}
 	else if(bGravityChange)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Some debug message!"));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Some debug message!"));
 
 		AlphaTime1 = HooksDAsset->PlayerGravityGainFloatCurve->GetFloatValue(AnimationCurrentTime);
 		float LerpValue = UKismetMathLibrary::Lerp(MovementComponent->GravityScale, 1, AlphaTime1);

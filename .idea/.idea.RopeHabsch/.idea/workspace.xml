@@ -8,44 +8,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c65c153-3a61-4cb0-88fb-9c80164ad34c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.RopeHabsch.dir/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.RopeHabsch/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/AM_GrappleAir.COPY" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/AM_GrappleAir.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/AM_GrappleGround.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/A_GrappleInAir.FBX" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/A_GrappleInAir.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/A_GrappleOnGround.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/A_Idle.FBX" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/A_JumpEnd.FBX" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/A_JumpLoop.FBX" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/A_JumpStart.FBX" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/A_Run.FBX" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/A_Walk.FBX" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/Curve_GrappleSpeedAir_Float.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/Curve_GrappleSpeedGround_Float.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/Curve_HeightOffsetAir_Float.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/Curve_HeightOffsetGround_Float.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/Curve_RopeLengthAir_Float.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/Curve_RopeLengthGround_Float.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/Curve_RopePositionAir_Float.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/Anims/Game/Sekiro/Animations/Curve_RopePositionGround_Float.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/ThirdPerson_AnimBP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Mannequin/Animations/ThirdPerson_AnimBP.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Character/Mesh/UE4_Mannequin_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Mannequin/Character/Mesh/UE4_Mannequin_Skeleton.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Rope/AttachPoints/BP_GrapplingAttachPoint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Rope/AttachPoints/BP_GrapplingAttachPoint.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Rope/AttachPoints/BP_LerpAttachPoint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Rope/AttachPoints/BP_LerpAttachPoint.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.RopeHabsch/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RopeHabsch/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/AM_GrappleGround.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Mannequin/Animations/AM_GrappleGround.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RopeHabsch.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/RopeHabsch.uproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabsch.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabsch.Build.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschAttachPoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschAttachPoint.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschAttachPoint.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschAttachPoint.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschCharacter.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/RopeMechanics/RopeHabschRopeComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/RopeMechanics/RopeHabschRopeComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/RopeMechanics/RopeHabschRopeComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/RopeMechanics/RopeHabschRopeComponent.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +163,7 @@
       <workItem from="1644565134169" duration="6048000" />
       <workItem from="1644576168722" duration="4400000" />
       <workItem from="1644585219072" duration="12749000" />
-      <workItem from="1644611355825" duration="24421000" />
+      <workItem from="1644611355825" duration="25044000" />
     </task>
     <servers />
   </component>
