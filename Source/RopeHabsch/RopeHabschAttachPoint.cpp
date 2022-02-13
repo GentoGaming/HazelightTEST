@@ -42,7 +42,7 @@ bool ARopeHabschAttachPoint::UseAttachPoint()
 
 void ARopeHabschAttachPoint::ReleasePoint()
 {
-	AttachPointState = InUseState;
+	AttachPointState = InRangeState;
 	ChangeAttachPointState(AttachPointState);
 }
 

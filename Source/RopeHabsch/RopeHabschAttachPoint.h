@@ -48,9 +48,11 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category="General Settings", meta = (AllowPrivateAccess = "true"))
 	bool bIsDebug = false;
 
+
+
 	UPROPERTY()
 	TArray<AActor*>IgnoreActors;
-
+	
 	FVector Destination;
 	/*Decide Which State the Attach Point is In .*/
 	void SetAttachPointCloseToPlayer(struct FAttachPointStruct AttachPointStruct);
@@ -98,4 +100,12 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void ChangeAttachPointState(EAttachPointState State);
 	void ReleasePoint();
+
+	UPROPERTY(EditAnywhere, Category="Swing Settings")
+	float SwingSpeed = 90.f;
+	UPROPERTY(EditAnywhere, Category="Swing Settings")
+	float MaxAngle = 90.f;
+
+	UPROPERTY(EditAnywhere, Category="General Settings")
+	float VelocityMultiplier = 2.f;
 };

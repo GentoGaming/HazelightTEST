@@ -40,13 +40,14 @@ class ROPEHABSCH_API URopeHabschRopeComponent : public UActorComponent
 	UPROPERTY()
 	class ARopeHabschCharacter* Player;
 	/* Allow Player to hook when he is above the grappling point */
-	UPROPERTY(EditDefaultsOnly, Category="General Settings", meta = (AllowPrivateAccess = "true"))
-	bool bIsHookingDown = false;
 	/* Toggle Debug On/Off */
-	UPROPERTY(EditDefaultsOnly, Category="General Settings", meta = (AllowPrivateAccess = "true"))
+	
+
+	UPROPERTY(EditAnywhere, Category="General Settings", meta = (AllowPrivateAccess = "true"))
 	bool bIsDebug = false;
+	
 	UPROPERTY()
-	class ARopeHabschAttachPoint* ClosestAttachPoint;
+	class ARopeHabschAttachPoint* ClosestAttachPoint ;
 	UPROPERTY()
 	ARopeHabschAttachPoint* CurrentInUseAttachPoint;
 	EAnimationStates AnimationState;
@@ -54,10 +55,10 @@ class ROPEHABSCH_API URopeHabschRopeComponent : public UActorComponent
 	UAnimInstance* AnimInstance;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="General Settings", meta = (AllowPrivateAccess = "true"))
 	class UHooksDataAsset* HooksDAsset;
-	bool bRopeAttached = false, bPlayerLerp = false, bAddingForceOnPlayer = false, bGravityChange = false, bSwinging = false;
+	bool bRopeAttached = false, bPlayerLerp = false, bAddingForceOnPlayer = false, bGravityChange = false, bSwinging = false,bSwingAnim = true;
 	float CurrentAngle, TimeAccumulation = 0.f, FullRopeLengthToDestination;
-	FVector PlayerToAttachPointDirection,SwingDirection, FinalDestination,SwingVelocity;
-	void TurnOnOffMovement(bool Condition) const;
+	FVector PlayerToAttachPointDirection,SwingDirection, FinalDestination,SwingVelocity,CurrentAPLocation;
+	void TurnOffMovement() const;
 	FRotator GetPlayerRotationTo(FVector Location) const;
 	
 public:

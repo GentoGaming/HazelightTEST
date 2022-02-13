@@ -8,16 +8,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c65c153-3a61-4cb0-88fb-9c80164ad34c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.RopeHabsch.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RopeHabsch.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RopeHabsch/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RopeHabsch/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Animations/ThirdPerson_AnimBP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Mannequin/Animations/ThirdPerson_AnimBP.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Mannequin/Character/Mesh/UE4_Mannequin_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Mannequin/Character/Mesh/UE4_Mannequin_Skeleton.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Rope/AttachPoints/BP_SwingingAttachPoint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Rope/AttachPoints/BP_SwingingAttachPoint.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Rope/AttachPoints/BP_GrapplingAttachPoint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Rope/AttachPoints/BP_GrapplingAttachPoint.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/DataAssets/HooksDataAsset.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/DataAssets/HooksDataAsset.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschAttachPoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschAttachPoint.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschAttachPoint.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschAttachPoint.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/RopeHabschCharacter.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/RopeMechanics/RopeHabschRopeComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/RopeMechanics/RopeHabschRopeComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/RopeHabsch/RopeMechanics/RopeHabschRopeComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/RopeHabsch/RopeMechanics/RopeHabschRopeComponent.h" afterDir="false" />
     </list>
@@ -172,6 +170,7 @@
       <workItem from="1644585219072" duration="12749000" />
       <workItem from="1644611355825" duration="28671000" />
       <workItem from="1644740920635" duration="11365000" />
+      <workItem from="1644763266057" duration="13102000" />
     </task>
     <servers />
   </component>
