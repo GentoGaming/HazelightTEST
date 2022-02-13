@@ -40,7 +40,14 @@ bool ARopeHabschAttachPoint::UseAttachPoint()
 	return false;
 }
 
-void ARopeHabschAttachPoint::ChangeAttachPointState( FAttachPointStruct AttachPointStruct)
+void ARopeHabschAttachPoint::ReleasePoint()
+{
+	AttachPointState = InUseState;
+	ChangeAttachPointState(AttachPointState);
+}
+
+
+void ARopeHabschAttachPoint::SetAttachPointCloseToPlayer( FAttachPointStruct AttachPointStruct)
 {
 
 	// This Attach Point in Use , Return
@@ -138,7 +145,7 @@ void ARopeHabschAttachPoint::BeginPlay()
 	IgnoreActors.Add(this);
 	IgnoreActors.Add(Player);
 	PlayerRopeComponent = Player->RopeComponent;
-	PlayerRopeComponent->OnScanningForAttachPoints.AddUObject(this, &ARopeHabschAttachPoint::ChangeAttachPointState); //see above in wiki
+	PlayerRopeComponent->OnScanningForAttachPoints.AddUObject(this, &ARopeHabschAttachPoint::SetAttachPointCloseToPlayer); //see above in wiki
 	Destination = GetActorLocation() + FVector(0,0,Player->GetCapsuleComponent()->GetUnscaledCapsuleHalfHeight());
 }
 

@@ -53,7 +53,7 @@ private:
 
 	FVector Destination;
 	/*Decide Which State the Attach Point is In .*/
-	void ChangeAttachPointState(struct FAttachPointStruct AttachPointStruct);
+	void SetAttachPointCloseToPlayer(struct FAttachPointStruct AttachPointStruct);
 
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
@@ -97,4 +97,5 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void ChangeAttachPointState(EAttachPointState State);
+	void ReleasePoint();
 };

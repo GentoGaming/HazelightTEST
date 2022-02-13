@@ -54,11 +54,12 @@ class ROPEHABSCH_API URopeHabschRopeComponent : public UActorComponent
 	UAnimInstance* AnimInstance;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="General Settings", meta = (AllowPrivateAccess = "true"))
 	class UHooksDataAsset* HooksDAsset;
-	bool bRopeAttached = false, bPlayerLerp = false, bAddingForceOnPlayer = false, bGravityChange = false;
+	bool bRopeAttached = false, bPlayerLerp = false, bAddingForceOnPlayer = false, bGravityChange = false, bSwinging = false;
 	float CurrentAngle, TimeAccumulation = 0.f, FullRopeLengthToDestination;
-	FVector PlayerToAttachPointDirection, FinalDestination;
-	void TurnOnOffMovement(bool Condition);
-	//void RolledInAir(){CurrentInUseAttachPoint = nullptr;};
+	FVector PlayerToAttachPointDirection,SwingDirection, FinalDestination,SwingVelocity;
+	void TurnOnOffMovement(bool Condition) const;
+	FRotator GetPlayerRotationTo(FVector Location) const;
+	
 public:
 	URopeHabschRopeComponent();
 
@@ -67,12 +68,17 @@ public:
 	float RayCastRadius = 2000;
 	void StartHook();
 	ARopeHabschAttachPoint* CheckForAttachPoints() const;
-	void HookToAttachPoint();
 
 	UFUNCTION(BlueprintCallable)
 	void ChangeAnimationState(EAnimationStates State);
-	void TurnCableVisibility(bool Condition);
+	void TurnCableVisibility(bool Condition) const;
 
+	UFUNCTION(BlueprintPure)
+	bool IsSwinging() const {return bSwinging;}
+
+	bool SwingKeyHold = false;
+	
+	void StopSwinging();
 protected:
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,

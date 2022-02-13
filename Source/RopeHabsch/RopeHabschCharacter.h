@@ -42,7 +42,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Swing Component", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* EndOfCable;
 	
-
 	UFUNCTION(BlueprintImplementableEvent, Category = MainMenu)
 	void PlayerAnimation( const EHookAnimation Anim, const bool bInAir);
 	
@@ -93,9 +92,9 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	/** Returns CameraBoom subobject **/
+	/** Returns CameraBoom sub Object **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	/** Returns FollowCamera subobject **/
+	/** Returns FollowCamera sub Object **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 };
